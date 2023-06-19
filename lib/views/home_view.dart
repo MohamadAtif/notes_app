@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/widgets/custom_ModalSheet.dart';
 import 'package:notes_app/widgets/custom_note.dart';
 
 class HomeView extends StatelessWidget {
@@ -11,8 +12,31 @@ class HomeView extends StatelessWidget {
         ),
 
         body: const CustomNote(),
-        floatingActionButton: FloatingActionButton(onPressed: (){},child:const Icon(Icons.add),),
+        floatingActionButton: FloatingActionButton(onPressed: (){
+          CustomModalSheet(context);
+        },child:const Icon(Icons.add),),
         
     );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  void CustomModalSheet(BuildContext context) {
+      showModalBottomSheet(
+     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      context:context , builder: (context) {
+      return ModalBottomSheet();
+    },);
   }
 }
