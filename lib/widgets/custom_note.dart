@@ -8,16 +8,21 @@ class CustomNote extends StatelessWidget {
     return  ListView.builder(itemBuilder: (context, index) {
         return  Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Container( decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(18)),
+          child: Container( decoration: BoxDecoration(color: Colors.yellow,borderRadius: BorderRadius.circular(18)),
               height: 120,
               width: 150,  
               child: const Padding(
                 padding: EdgeInsets.all(12.0),
-                child: Column(children: [
-                  Text('Title name ',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,color: Colors.black),),
-                  SizedBox(height: 10,),
-                  Text(' description =data explain what you neeed,the some problem what are you in my hoollj noom full stack and loading just gopluy  ',
-                  style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blueGrey),)
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                 ListTile(
+                  title: Text('Flutter Title note',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,color: Colors.black, ),),
+                  subtitle: Text('description =data explain what you neeed ',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blueGrey),),
+                  trailing: Icon(Icons.delete,color: Colors.red,),
+                 )
+                ,
+                Text('20/6/2023',style: TextStyle(fontSize: 13,color: Colors.black),)
                 ],)
              
               ), 
