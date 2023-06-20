@@ -7,37 +7,93 @@ class ModalBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      child:  Column(children: [
-        SizedBox(height: 10,),
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: TextField(
-            decoration:   InputDecoration(border: OutlineInputBorder(),fillColor:Color(0xff63ffda) 
-            ,labelText: 'Enter Title',
+      child:  AddNoteForm(),
+    );
+  }
+}
+
+class AddNoteForm extends StatefulWidget {
+   AddNoteForm({
+    super.key,
+  });
+
+  @override
+  State<AddNoteForm> createState() => _AddNoteFormState();
+}
+
+class _AddNoteFormState extends State<AddNoteForm> {
+  final GlobalKey<FormState>formKey=GlobalKey();
+  AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
+
+  String? title,subTitle;
+  @override
+  Widget build(BuildContext context) {
+    return  Form(
+      key: formKey ,
+      autovalidateMode: autovalidateMode,
+      child:  SingleChildScrollView(
+        child: Column(children: [
+        const  SizedBox(height: 10,),
+          Padding(
+            padding:const EdgeInsets.all(8.0),
+            child: TextFormField(
+              onSaved: (newValue) {
+                title=newValue;
+              },
+              validator: (value) {
+                if(value?.isEmpty??true){
+                  return 'Field is required';
+                }
+                else {
+                  return null;
+                }
+              },
+              decoration: const  InputDecoration(border: OutlineInputBorder(),fillColor:Color(0xff63ffda) 
+              ,labelText: 'Enter Title',
+              ),
+              style: TextStyle(),
+              
             ),
-            style: TextStyle(),
-            
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: TextField(
-            maxLines: 8,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Enter Description',
-              enabledBorder: OutlineInputBorder(),
-            
-            
+          Padding(
+            padding:const EdgeInsets.all(8.0),
+            child: TextFormField(
+              onSaved: (newValue) {
+                subTitle=newValue;
+              },
+              validator: (value) {
+                if(value?.isEmpty??true){
+                  return 'Field is required';
+                }
+                else {
+                  return null;
+                }
+                
+              },
+              maxLines: 8,
+              decoration:const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter Description',
+                enabledBorder: OutlineInputBorder(),
+              
+              
+              ),
             ),
           ),
-        ),
-        CustomButton(),
-        
-
-
-
-      ],),
+           CustomButton(onTap: () { 
+            if (formKey.currentState!.validate()){
+              formKey.currentState!.save();
+            }
+            else{autovalidateMode=AutovalidateMode.always;
+            setState(() {});
+            }
+            },),
+          
+          
+          
+          
+        ],),
+      ),
     );
   }
 }
