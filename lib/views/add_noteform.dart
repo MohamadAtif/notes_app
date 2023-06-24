@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/widgets/custom_button.dart';
 
-class ModalBottomSheet extends StatelessWidget {
-  const ModalBottomSheet({super.key});
+import '../widgets/custom_button.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return  Container(
-      child:  AddNoteForm(),
-    );
-  }
-}
 
 class AddNoteForm extends StatefulWidget {
    AddNoteForm({
     super.key,
   });
-
   @override
   State<AddNoteForm> createState() => _AddNoteFormState();
 }
-
 class _AddNoteFormState extends State<AddNoteForm> {
+ 
   final GlobalKey<FormState>formKey=GlobalKey();
+ 
   AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
 
   String? title,subTitle;
+ 
   @override
   Widget build(BuildContext context) {
     return  Form(
@@ -67,8 +59,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 }
                 else {
                   return null;
-                }
-                
+                } 
               },
               maxLines: 8,
               decoration:const InputDecoration(
@@ -76,22 +67,19 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 labelText: 'Enter Description',
                 enabledBorder: OutlineInputBorder(),
               
-              
               ),
             ),
           ),
            CustomButton(onTap: () { 
             if (formKey.currentState!.validate()){
               formKey.currentState!.save();
+
+              
             }
             else{autovalidateMode=AutovalidateMode.always;
             setState(() {});
             }
-            },),
-          
-          
-          
-          
+            },)
         ],),
       ),
     );

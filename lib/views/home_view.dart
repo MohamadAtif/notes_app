@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/widgets/custom_ModalSheet.dart';
+import 'package:notes_app/views/AddModalSheet.dart';
 import 'package:notes_app/widgets/custom_note.dart';
 
 class HomeView extends StatelessWidget {
