@@ -34,6 +34,7 @@ class HomeView extends StatelessWidget {
 
   void CustomModalSheet(BuildContext context) {
       showModalBottomSheet(
+        isScrollControlled: true,
      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       context:context , builder: (context) {
       return ModalBottomSheet();
