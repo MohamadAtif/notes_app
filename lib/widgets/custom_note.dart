@@ -1,43 +1,59 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/editNoteView.dart';
 
-class CustomNote extends StatelessWidget {
-  const CustomNote({super.key});
+import '../views/note_item.dart';
+
+class CustomNote extends StatefulWidget {
+ 
+  const CustomNote({super.key,});
+  
 
   @override
+ 
+  State<CustomNote> createState() => _CustomNoteState();
+  
+}
+
+class _CustomNoteState extends State<CustomNote> {
+@override
+void initState(){
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    super.initState();
+
+}   
+
+  @override
+ 
   Widget build(BuildContext context) {
-    return  ListView.builder(itemBuilder: (context, index) {
-        return  Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditNoteView();
-              },));
-            },
-            child: Container( decoration: BoxDecoration(color: Colors.yellow,borderRadius: BorderRadius.circular(18)),
-                height: 120,
-                width: 150,  
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                   ListTile(
-                    title: Text('Flutter Title note',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,color: Colors.black, ),),
-                    subtitle: Text('description =data explain what you neeed ',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blueGrey),),
-                    trailing: Icon(Icons.delete,color: Colors.red,),
-                   )
-                  ,
-                  Text('20/6/2023',style: TextStyle(fontSize: 13,color: Colors.black),)
-                  ],)
-               
-                ), 
+    //  BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    
+    List<NoteModel> notes=BlocProvider.of<NotesCubit>(context).notes??[];
+    return BlocBuilder<NotesCubit, NotesState>(
+      builder: (context, state) {
+        return ListView.builder(
+          itemCount: notes.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return EditNoteView();
+                    },
+                  ));
+                },
+                child: NoteItem(note: notes[index],),
               ),
-          ),
+            );
+          },
         );
-
-
-        },);
+      },
+    );
   }
 }
